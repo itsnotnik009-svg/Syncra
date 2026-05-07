@@ -16,7 +16,7 @@ const columns = [
 function Column({ column, tasks, onEditTask }: { column: typeof columns[0]; tasks: Task[]; onEditTask: (t: Task) => void }) {
   const { setNodeRef, isOver } = useDroppable({ id: column.id })
   return (
-    <div className="flex flex-col min-h-[400px]">
+    <div className="flex flex-col min-h-[400px] w-[280px] sm:w-[320px] shrink-0">
       <div className="flex items-center gap-2 mb-4 px-1">
         <span className={cn('inline-flex items-center rounded-lg px-3 py-1.5 text-[13px] font-bold', column.bg, column.color)}>{column.label}</span>
         <span className="text-[13px] font-semibold text-slate-400">{tasks.length}</span>
@@ -57,9 +57,13 @@ export default function KanbanBoard({ tasks, onEditTask }: { tasks: Task[]; onEd
 
   return (
     <DndContext sensors={sensors} onDragStart={(e: DragStartEvent) => setDragging(e.active.data.current?.task || null)} onDragEnd={onDragEnd}>
-      <div className="overflow-x-auto pb-4">
-        <div className="grid grid-cols-4 gap-6 min-w-[900px]">
-          {columns.map((col) => <Column key={col.id} column={col} tasks={byStatus(col.id)} onEditTask={onEditTask} />)}
+      <div className="overflow-x-auto pb-4 snap-x snap-mandatory">
+        <div className="flex gap-4 sm:gap-6 min-w-max px-1">
+          {columns.map((col) => (
+            <div key={col.id} className="snap-center">
+              <Column column={col} tasks={byStatus(col.id)} onEditTask={onEditTask} />
+            </div>
+          ))}
         </div>
       </div>
       <DragOverlay dropAnimation={null}>
