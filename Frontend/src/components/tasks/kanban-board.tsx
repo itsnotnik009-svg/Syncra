@@ -57,8 +57,8 @@ export default function KanbanBoard({ tasks, onEditTask }: { tasks: Task[]; onEd
 
   return (
     <DndContext sensors={sensors} onDragStart={(e: DragStartEvent) => setDragging(e.active.data.current?.task || null)} onDragEnd={onDragEnd}>
-      <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 pb-4">
-        <div className="grid grid-cols-4 gap-6 min-w-[900px] sm:min-w-0">
+      <div className="overflow-x-auto pb-4">
+        <div className="grid grid-cols-4 gap-6 min-w-[900px]">
           {columns.map((col) => <Column key={col.id} column={col} tasks={byStatus(col.id)} onEditTask={onEditTask} />)}
         </div>
       </div>
