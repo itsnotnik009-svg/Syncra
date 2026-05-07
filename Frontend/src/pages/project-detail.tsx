@@ -58,7 +58,7 @@ export default function ProjectDetailPage() {
         )}
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-4 mb-6">
+      <div className="grid gap-3 grid-cols-2 sm:grid-cols-4 mb-6">
         <div className="flex items-center gap-3 rounded-2xl border bg-white p-4" style={{ borderColor: 'var(--border-color)' }}>
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E8E0F5]"><ListTodo className="h-5 w-5 text-[#7C6CAF]" /></div>
           <div><p className="text-[22px] font-bold text-[#1C3F35]">{tasks.length}</p><p className="text-[11px] font-semibold text-slate-400 uppercase">Total Tasks</p></div>
@@ -86,7 +86,8 @@ export default function ProjectDetailPage() {
 
       {tasks.length ? (
         <div className="rounded-2xl border bg-white overflow-hidden" style={{ borderColor: 'var(--border-color)' }}>
-          <table className="w-full">
+          <div className="overflow-x-auto">
+          <table className="w-full min-w-[600px]">
             <thead>
               <tr className="border-b" style={{ borderColor: 'var(--border-light)' }}>
                 {['Task', 'Status', 'Priority', 'Assignee', 'Due Date'].map((h) => (
@@ -119,6 +120,7 @@ export default function ProjectDetailPage() {
               })}
             </tbody>
           </table>
+          </div>
         </div>
       ) : <EmptyState title="No tasks yet" description={admin ? 'Add the first task to this project.' : 'No tasks in this project.'} />}
 

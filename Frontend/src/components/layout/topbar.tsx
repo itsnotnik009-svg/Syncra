@@ -40,7 +40,7 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
             <Menu className="h-5 w-5" />
           </button>
           <div>
-            <h1 className="text-[26px] font-extrabold tracking-tight">{title}</h1>
+            <h1 className="text-[20px] sm:text-[26px] font-extrabold tracking-tight">{title}</h1>
             <p className="mt-1 text-[13px] font-medium text-emerald-100/80">{subtitle}</p>
           </div>
         </div>

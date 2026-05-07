@@ -32,7 +32,7 @@ export default function ProjectFormDialog({ open, onClose, project }: { open: bo
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative z-10 w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+      <div className="relative z-10 w-full max-w-md mx-4 rounded-2xl bg-white p-6 shadow-xl">
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-[16px] font-semibold text-[#1a1a1a]">{editing ? 'Edit Project' : 'New Project'}</h2>
           <button onClick={onClose} className="rounded-lg p-1 text-[#9C9590] hover:bg-[#F0EBE3]"><X className="h-4 w-4" /></button>

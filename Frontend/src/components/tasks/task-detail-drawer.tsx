@@ -78,7 +78,7 @@ export default function TaskDetailDrawer({ task, open, onClose }: { task: Task |
   return (
     <>
       <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-[2px]" onClick={onClose} />
-      <div className="fixed right-0 top-0 z-50 flex h-full w-full max-w-[520px] flex-col bg-white shadow-2xl animate-in slide-in-from-right duration-200">
+      <div className="fixed right-0 top-0 z-50 flex h-full w-full max-w-full sm:max-w-[520px] flex-col bg-white shadow-2xl animate-in slide-in-from-right duration-200">
         <div className="flex items-center justify-between border-b px-6 py-4" style={{ borderColor: 'var(--border-color)' }}>
           <h2 className="text-[17px] font-bold text-[#1C3F35]">Task Details</h2>
           <div className="flex items-center gap-1">

@@ -23,7 +23,8 @@ export default function MembersPage() {
 
       {isLoading ? <TableSkeleton rows={5} /> : users?.length ? (
         <div className="rounded-2xl border bg-white overflow-hidden" style={{ borderColor: 'var(--border-color)' }}>
-          <table className="w-full">
+          <div className="overflow-x-auto">
+          <table className="w-full min-w-[640px]">
             <thead>
               <tr className="border-b" style={{ borderColor: 'var(--border-light)' }}>
                 {['Member', 'Role', 'Projects', 'Tasks', 'Joined'].map((h) => (
@@ -60,6 +61,7 @@ export default function MembersPage() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       ) : <EmptyState title="No members" description="No team members found." />}
     </div>

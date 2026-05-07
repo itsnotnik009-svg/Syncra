@@ -69,13 +69,15 @@ export default function TasksPage() {
       )}
 
       {isLoading ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {[0, 1, 2, 3].map((i) => (
-            <div key={i} className="min-h-[300px]">
-              <Skeleton className="h-5 w-24 mb-4" />
-              <div className="space-y-2"><Skeleton className="h-28 w-full rounded-xl" /><Skeleton className="h-28 w-full rounded-xl" /></div>
-            </div>
-          ))}
+        <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div className="grid grid-cols-4 gap-4 min-w-[900px] sm:min-w-0">
+            {[0, 1, 2, 3].map((i) => (
+              <div key={i} className="min-h-[300px]">
+                <Skeleton className="h-5 w-24 mb-4" />
+                <div className="space-y-2"><Skeleton className="h-28 w-full rounded-xl" /><Skeleton className="h-28 w-full rounded-xl" /></div>
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
         <KanbanBoard tasks={tasks || []} onEditTask={(t) => setDetailTask(t)} />
