@@ -68,10 +68,10 @@ export default function TasksPage() {
         </div>
       )}
       {isLoading ? (
-        <div className="overflow-x-auto pb-4">
-          <div className="flex gap-4 sm:gap-6 min-w-max px-1">
+        <div className="pb-4">
+          <div className="flex flex-col xl:flex-row gap-6">
             {[0, 1, 2, 3].map((i) => (
-              <div key={i} className="min-h-[300px] w-[280px] sm:w-[320px] shrink-0">
+              <div key={i} className="min-h-[300px] w-full xl:w-[320px] shrink-0">
                 <Skeleton className="h-5 w-24 mb-4" />
                 <div className="space-y-2"><Skeleton className="h-28 w-full rounded-xl" /><Skeleton className="h-28 w-full rounded-xl" /></div>
               </div>

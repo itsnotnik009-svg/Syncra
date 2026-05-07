@@ -22,7 +22,23 @@ export function useUpdateTask() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: UpdateTaskPayload }) => updateTask(id, data),
-    onSuccess: () => {
+    onMutate: async ({ id, data }) => {
+      await qc.cancelQueries({ queryKey: ['tasks'] })
+      const previousTasks = qc.getQueriesData({ queryKey: ['tasks'] })
+      qc.setQueriesData({ queryKey: ['tasks'] }, (old: any) => {
+        if (!old || !Array.isArray(old)) return old
+        return old.map((t: any) => t.id === id ? { ...t, ...data } : t)
+      })
+      return { previousTasks }
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previousTasks) {
+        context.previousTasks.forEach(([queryKey, oldData]) => {
+          qc.setQueryData(queryKey, oldData)
+        })
+      }
+    },
+    onSettled: () => {
       qc.invalidateQueries({ queryKey: ['tasks'] })
       qc.invalidateQueries({ queryKey: ['dashboard'] })
     },
