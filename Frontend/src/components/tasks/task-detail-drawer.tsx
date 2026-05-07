@@ -47,7 +47,7 @@ export default function TaskDetailDrawer({ task, open, onClose }: { task: Task |
         id: task.id,
         data: {
           assignedTo: editAssignee || null,
-          priority: editPriority,
+          priority: editPriority as Task['priority'],
           dueDate: editDueDate ? new Date(editDueDate).toISOString() : null,
           projectId: editProject,
         },
