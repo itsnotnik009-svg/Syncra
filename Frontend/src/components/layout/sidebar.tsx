@@ -2,6 +2,8 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/auth-context'
 import { cn } from '@/lib/utils'
 import { LayoutDashboard, FolderKanban, ListTodo, Users, Settings, LogOut, X, Box } from 'lucide-react'
+import { UserAvatar } from '@/components/ui/avatar'
+import { LogoLight } from '@/components/ui/logo'
 
 export default function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { user, logout } = useAuth()
@@ -23,11 +25,8 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
         {/* Decorative subtle background elements */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
         
-        <div className="flex h-24 items-center px-8 gap-3 relative z-10">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#FFC436] shadow-sm">
-            <Box className="h-5 w-5 text-[#1C3F35]" />
-          </div>
-          <span className="text-[22px] font-extrabold text-white tracking-tight">Syncra</span>
+        <div className="flex h-24 items-center px-8 relative z-10">
+          <LogoLight className="scale-[1.15] origin-left" />
           <button onClick={onClose} className="ml-auto rounded-md p-2 text-emerald-100/60 hover:bg-white/10 lg:hidden transition-colors">
             <X className="h-5 w-5" />
           </button>
@@ -50,7 +49,7 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
         <div className="p-4 mt-auto relative z-10">
           <div className="rounded-2xl bg-white/5 border border-white/10 p-2 backdrop-blur-sm">
             <div className="flex items-center gap-3 px-3 py-2">
-              <img src={`https://ui-avatars.com/api/?name=${user?.name || 'U'}&background=FFC436&color=1C3F35&bold=true`} alt="" className="h-10 w-10 rounded-full ring-2 ring-white/10" />
+              <UserAvatar name={user?.name || 'U'} className="h-10 w-10 rounded-full ring-2 ring-white/10 text-[15px]" />
               <div className="flex-1 min-w-0">
                 <p className="text-[14px] font-bold text-white truncate">{user?.name}</p>
                 <p className="text-[12px] text-emerald-100/60 font-medium truncate capitalize">{user?.role.toLowerCase()}</p>

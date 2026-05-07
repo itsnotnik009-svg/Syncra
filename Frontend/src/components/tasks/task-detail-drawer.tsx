@@ -6,6 +6,7 @@ import { useUsers } from '@/hooks/use-users'
 import { useProjects } from '@/hooks/use-projects'
 import { StatusBadge, PriorityBadge } from '@/components/ui/badges'
 import { X, Send, Trash2, Clock, Pencil, UserRound, CalendarDays, Flag } from 'lucide-react'
+import { UserAvatar } from '@/components/ui/avatar'
 import { format, formatDistanceToNow } from 'date-fns'
 import { toast } from 'sonner'
 import type { Task, TaskStatus } from '@/types'
@@ -77,7 +78,7 @@ export default function TaskDetailDrawer({ task, open, onClose }: { task: Task |
 
   return (
     <>
-      <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-[2px]" onClick={onClose} />
+      <div className="fixed inset-0 z-50 bg-[#1C3F35]/20 backdrop-blur-md transition-opacity" onClick={onClose} />
       <div className="fixed right-0 top-0 z-50 flex h-full w-full max-w-full sm:max-w-[520px] flex-col bg-white shadow-2xl animate-in slide-in-from-right duration-200">
         <div className="flex items-center justify-between border-b px-6 py-4" style={{ borderColor: 'var(--border-color)' }}>
           <h2 className="text-[17px] font-bold text-[#1C3F35]">Task Details</h2>
@@ -158,7 +159,7 @@ export default function TaskDetailDrawer({ task, open, onClose }: { task: Task |
                   <p className="text-[11px] font-semibold uppercase text-slate-400 mb-1">Assignee</p>
                   {task.assignee ? (
                     <div className="flex items-center gap-2">
-                      <img src={`https://ui-avatars.com/api/?name=${task.assignee.name}&background=FFC436&color=1C3F35&bold=true&size=24`} className="h-6 w-6 rounded-full" alt="" />
+                      <UserAvatar name={task.assignee.name} className="h-6 w-6 rounded-full text-[10px]" />
                       <span className="text-[13px] font-medium text-[#1C3F35]">{task.assignee.name}</span>
                     </div>
                   ) : <span className="text-[13px] text-slate-400">Unassigned</span>}
@@ -196,7 +197,7 @@ export default function TaskDetailDrawer({ task, open, onClose }: { task: Task |
                 {loadingComments ? <p className="text-[13px] text-slate-400 text-center py-4">Loading...</p>
                   : comments?.length ? comments.map((c) => (
                     <div key={c.id} className="flex gap-3 group">
-                      <img src={`https://ui-avatars.com/api/?name=${c.user.name}&background=1C3F35&color=FFC436&bold=true&size=32`} className="h-8 w-8 rounded-full flex-shrink-0 mt-0.5" alt="" />
+                      <UserAvatar name={c.user.name} className="h-8 w-8 rounded-full flex-shrink-0 mt-0.5 text-[12px]" />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="text-[13px] font-bold text-[#1C3F35]">{c.user.name}</span>

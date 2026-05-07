@@ -5,6 +5,7 @@ import { useProjects, useDeleteProject } from '@/hooks/use-projects'
 import { CardSkeleton } from '@/components/ui/skeleton'
 import EmptyState from '@/components/ui/empty-state'
 import { Plus, FolderKanban, MoreVertical, Pencil, Trash2, ListTodo } from 'lucide-react'
+import { UserAvatar } from '@/components/ui/avatar'
 import { format } from 'date-fns'
 import ProjectFormDialog from '@/components/projects/project-form-dialog'
 import type { Project } from '@/types'
@@ -74,7 +75,7 @@ export default function ProjectsPage() {
                   <ListTodo className="h-3.5 w-3.5" /> {project._count?.tasks || 0} tasks
                 </div>
                 <div className="flex items-center gap-2 text-[12px] text-[#9C9590]">
-                  <img src={`https://ui-avatars.com/api/?name=${project.creator.name}&background=1C3F35&color=FFC436&bold=true&size=20`} className="h-5 w-5 rounded-full" alt="" />
+                  <UserAvatar name={project.creator.name} className="h-5 w-5 rounded-full text-[9px]" />
                   {format(new Date(project.createdAt), 'MMM d, yyyy')}
                 </div>
               </div>

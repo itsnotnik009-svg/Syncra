@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '@/contexts/auth-context'
 import { Menu, Search, Bell } from 'lucide-react'
+import { UserAvatar } from '@/components/ui/avatar'
 import { format } from 'date-fns'
 
 export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
@@ -59,7 +60,7 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
           </button>
           
           <div className="h-10 w-10 shrink-0 rounded-full bg-white/10 p-0.5 shadow-sm">
-            <img src={`https://ui-avatars.com/api/?name=${user?.name || 'U'}&background=FFC436&color=1C3F35&bold=true&size=36`} alt="" className="h-full w-full rounded-full" />
+            <UserAvatar name={user?.name || 'U'} className="h-full w-full rounded-full text-[14px]" />
           </div>
         </div>
       </div>

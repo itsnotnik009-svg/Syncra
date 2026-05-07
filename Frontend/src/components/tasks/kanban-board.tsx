@@ -58,9 +58,9 @@ export default function KanbanBoard({ tasks, onEditTask }: { tasks: Task[]; onEd
   return (
     <DndContext sensors={sensors} onDragStart={(e: DragStartEvent) => setDragging(e.active.data.current?.task || null)} onDragEnd={onDragEnd}>
       <div className="pb-4">
-        <div className="flex flex-col xl:flex-row gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
           {columns.map((col) => (
-            <div key={col.id} className="w-full xl:w-[320px] shrink-0">
+            <div key={col.id} className="min-w-0">
               <Column column={col} tasks={byStatus(col.id)} onEditTask={onEditTask} />
             </div>
           ))}

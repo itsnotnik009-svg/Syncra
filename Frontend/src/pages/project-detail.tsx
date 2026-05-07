@@ -8,6 +8,7 @@ import TaskFormDialog from '@/components/tasks/task-form-dialog'
 import { Skeleton } from '@/components/ui/skeleton'
 import EmptyState from '@/components/ui/empty-state'
 import { ArrowLeft, Plus, Calendar, User2, ListTodo, CheckCircle2 } from 'lucide-react'
+import { UserAvatar } from '@/components/ui/avatar'
 import { format } from 'date-fns'
 import type { Task, TaskStatus } from '@/types'
 
@@ -109,7 +110,7 @@ export default function ProjectDetailPage() {
                     <td className="px-5 py-3.5">
                       {t.assignee ? (
                         <div className="flex items-center gap-2">
-                          <img src={`https://ui-avatars.com/api/?name=${t.assignee.name}&background=FFC436&color=1C3F35&bold=true&size=24`} className="h-6 w-6 rounded-full" alt="" />
+                          <UserAvatar name={t.assignee.name} className="h-6 w-6 rounded-full text-[10px]" />
                           <span className="text-[13px] text-slate-600">{t.assignee.name}</span>
                         </div>
                       ) : <span className="text-[13px] text-slate-400">—</span>}

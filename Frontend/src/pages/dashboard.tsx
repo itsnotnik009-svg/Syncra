@@ -6,6 +6,7 @@ import { StatusBadge, PriorityBadge } from '@/components/ui/badges'
 import { CardSkeleton, TableSkeleton } from '@/components/ui/skeleton'
 import EmptyState from '@/components/ui/empty-state'
 import { ListTodo, CheckCircle2, Clock, AlertTriangle, FolderKanban, Activity, CalendarClock } from 'lucide-react'
+import { UserAvatar } from '@/components/ui/avatar'
 import { format } from 'date-fns'
 
 function AdminDashboard() {
@@ -31,32 +32,49 @@ function AdminDashboard() {
           <h2 className="text-[16px] font-bold text-[#1C3F35]">Recent Activity</h2>
         </div>
         {al ? <TableSkeleton rows={5} /> : activity?.length ? (
-          <div className="rounded-2xl border bg-white overflow-hidden shadow-[0_2px_10px_rgb(0,0,0,0.02)]" style={{ borderColor: 'var(--border-color)' }}>
+          <div className="rounded-[24px] border border-slate-200 bg-white overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
-            <table className="w-full min-w-[640px]">
+            <table className="w-full min-w-[720px] border-collapse">
               <thead>
-                <tr className="border-b bg-[#F9FAFB]/50" style={{ borderColor: 'var(--border-light)' }}>
-                  {['Task', 'Project', 'Status', 'Priority', 'Assignee', 'Date'].map((h) => (
-                    <th key={h} className="px-5 py-4 text-left text-[11px] font-bold uppercase tracking-widest text-slate-400">{h}</th>
+                <tr className="border-b border-slate-100 bg-slate-50/80">
+                  {['Task', 'Project', 'Status', 'Priority', 'Assignee', 'Date'].map((h, i) => (
+                    <th key={h} className={`px-6 py-4 text-left text-[12px] font-extrabold uppercase tracking-widest text-slate-400/80 ${i === 0 ? 'rounded-tl-[24px]' : ''} ${i === 5 ? 'rounded-tr-[24px]' : ''}`}>
+                      {h}
+                    </th>
                   ))}
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-slate-100/80">
                 {activity.map((t) => (
-                  <tr key={t.id} className="border-b last:border-b-0 hover:bg-[#F9FAFB] transition-colors group" style={{ borderColor: 'var(--border-light)' }}>
-                    <td className="px-5 py-4 text-[13px] font-bold text-[#1C3F35]">{t.title}</td>
-                    <td className="px-5 py-4 text-[13px] font-medium text-slate-500">{t.project.title}</td>
-                    <td className="px-5 py-4"><StatusBadge status={t.status} /></td>
-                    <td className="px-5 py-4"><PriorityBadge priority={t.priority} /></td>
-                    <td className="px-5 py-4">
-                      {t.assignee ? (
-                        <div className="flex items-center gap-2">
-                          <img src={`https://ui-avatars.com/api/?name=${t.assignee.name}&background=1C3F35&color=FFC436&bold=true&size=24`} className="h-6 w-6 rounded-full ring-2 ring-white shadow-sm" alt="" />
-                          <span className="text-[13px] font-medium text-slate-600">{t.assignee.name}</span>
-                        </div>
-                      ) : <span className="text-[13px] font-medium text-slate-400">—</span>}
+                  <tr key={t.id} className="group transition-colors hover:bg-slate-50/50">
+                    <td className="px-6 py-4.5">
+                      <p className="text-[14px] font-extrabold text-[#1C3F35] tracking-tight">{t.title}</p>
                     </td>
-                    <td className="px-5 py-4 text-[13px] font-medium text-slate-400">{format(new Date(t.createdAt), 'MMM d')}</td>
+                    <td className="px-6 py-4.5">
+                      <div className="flex items-center gap-2">
+                        <FolderKanban className="h-4 w-4 text-slate-300" />
+                        <span className="text-[13px] font-semibold text-slate-500">{t.project.title}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4.5">
+                      <div className="scale-95 origin-left"><StatusBadge status={t.status} /></div>
+                    </td>
+                    <td className="px-6 py-4.5">
+                      <div className="scale-95 origin-left"><PriorityBadge priority={t.priority} /></div>
+                    </td>
+                    <td className="px-6 py-4.5">
+                      {t.assignee ? (
+                        <div className="flex items-center gap-2.5">
+                          <UserAvatar name={t.assignee.name} className="h-7 w-7 rounded-full ring-2 ring-white shadow-sm group-hover:ring-[#FFC436] transition-all text-[11px]" />
+                          <span className="text-[13px] font-bold text-slate-600">{t.assignee.name}</span>
+                        </div>
+                      ) : (
+                        <span className="inline-flex h-7 items-center rounded-full border border-dashed border-slate-300 bg-slate-50 px-3 text-[12px] font-semibold text-slate-400">—</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4.5 text-[13px] font-bold text-slate-400">
+                      {format(new Date(t.createdAt), 'MMM d')}
+                    </td>
                   </tr>
                 ))}
               </tbody>

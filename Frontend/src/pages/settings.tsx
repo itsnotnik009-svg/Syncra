@@ -3,6 +3,7 @@ import { useAuth } from '@/contexts/auth-context'
 import { updateProfileApi, changePasswordApi } from '@/api/auth'
 import { toast } from 'sonner'
 import { Loader2, Check } from 'lucide-react'
+import { UserAvatar } from '@/components/ui/avatar'
 
 export default function SettingsPage() {
   const { user, refreshUser } = useAuth()
@@ -41,7 +42,7 @@ export default function SettingsPage() {
         <div className="rounded-2xl border bg-white p-6" style={{ borderColor: 'var(--border-color)' }}>
           <h2 className="text-[15px] font-semibold text-[#1a1a1a] mb-4">Profile</h2>
           <div className="flex items-center gap-4 mb-6">
-            <img src={`https://ui-avatars.com/api/?name=${user?.name || 'U'}&background=1C3F35&color=FFC436&bold=true&size=56`} alt="" className="h-14 w-14 rounded-full" />
+            <UserAvatar name={user?.name || 'U'} className="h-14 w-14 rounded-full text-xl" />
             <div>
               <p className="text-[15px] font-semibold text-[#1a1a1a]">{user?.name}</p>
               <p className="text-[13px] text-[#9C9590]">{user?.email}</p>

@@ -8,7 +8,6 @@ import type { Task, CreateTaskPayload } from '@/types'
 import { X } from 'lucide-react'
 import { toast } from 'sonner'
 
-const inputCls = "h-10 w-full rounded-xl border bg-white px-3.5 text-[13px] text-[#1a1a1a] placeholder:text-[#9C9590] outline-none transition-all focus:border-[#C4B5F0] focus:ring-2 focus:ring-[#E8E0F5]"
 
 export default function TaskFormDialog({ open, onClose, task, defaultStatus, defaultProjectId }: {
   open: boolean; onClose: () => void; task: Task | null; defaultStatus?: string; defaultProjectId?: string
@@ -50,35 +49,38 @@ export default function TaskFormDialog({ open, onClose, task, defaultStatus, def
 
   if (!open) return null
 
+  const inputStyle = "h-11 w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 text-[14px] text-[#1a1a1a] placeholder:text-slate-400 outline-none transition-all focus:bg-white focus:border-[#FFC436] focus:ring-4 focus:ring-[#FFC436]/10"
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="fixed inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative z-10 w-full max-w-lg mx-4 rounded-2xl bg-white p-6 shadow-xl max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-[16px] font-semibold text-[#1a1a1a]">{editing ? 'Edit Task' : 'New Task'}</h2>
-          <button onClick={onClose} className="rounded-lg p-1 text-[#9C9590] hover:bg-[#F0EBE3]"><X className="h-4 w-4" /></button>
-        </div>
+    <div className="fixed inset-0 z-50 overflow-y-auto">
+      <div className="fixed inset-0 bg-[#1C3F35]/20 backdrop-blur-md transition-opacity" onClick={onClose} />
+      <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
+        <div className="relative w-full max-w-lg rounded-[24px] bg-white p-6 sm:p-7 shadow-2xl border border-[#E8E5E0] animate-in fade-in zoom-in-95 duration-200">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-[18px] font-extrabold text-[#1C3F35] tracking-tight">{editing ? 'Edit Task' : 'New Task'}</h2>
+            <button onClick={onClose} className="rounded-full p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors"><X className="h-5 w-5" /></button>
+          </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {(admin || !editing) && (
             <div>
-              <label className="block text-[13px] font-medium text-[#1a1a1a] mb-1.5">Title</label>
-              <input type="text" placeholder="Task name" className={inputCls} style={{ borderColor: 'var(--border-color)' }} {...register('title', { required: 'Required' })} />
-              {errors.title && <p className="mt-1 text-[11px] text-red-500">{errors.title.message}</p>}
+              <label className="block text-[13px] font-bold text-[#1C3F35] mb-2">Title</label>
+              <input type="text" placeholder="What needs to be done?" className={inputStyle} {...register('title', { required: 'Required' })} />
+              {errors.title && <p className="mt-1.5 text-[12px] font-medium text-red-500">{errors.title.message}</p>}
             </div>
           )}
 
           {(admin || !editing) && (
             <div>
-              <label className="block text-[13px] font-medium text-[#1a1a1a] mb-1.5">Description</label>
-              <textarea rows={2} placeholder="Description..." className="w-full rounded-xl border bg-white px-3.5 py-2.5 text-[13px] text-[#1a1a1a] placeholder:text-[#9C9590] outline-none focus:border-[#C4B5F0] focus:ring-2 focus:ring-[#E8E0F5] resize-none" style={{ borderColor: 'var(--border-color)' }} {...register('description')} />
+              <label className="block text-[13px] font-bold text-[#1C3F35] mb-2">Description</label>
+              <textarea rows={3} placeholder="Add more details..." className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-[14px] text-[#1a1a1a] placeholder:text-slate-400 outline-none transition-all focus:bg-white focus:border-[#FFC436] focus:ring-4 focus:ring-[#FFC436]/10 resize-none" {...register('description')} />
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-[13px] font-medium text-[#1a1a1a] mb-1.5">Status</label>
-              <select className={inputCls} style={{ borderColor: 'var(--border-color)' }} {...register('status')}>
+              <label className="block text-[13px] font-bold text-[#1C3F35] mb-2">Status</label>
+              <select className={inputStyle} {...register('status')}>
                 <option value="TODO">To Do</option>
                 <option value="IN_PROGRESS">In Progress</option>
                 <option value="REVIEW">Review</option>
@@ -87,8 +89,8 @@ export default function TaskFormDialog({ open, onClose, task, defaultStatus, def
             </div>
             {(admin || !editing) && (
               <div>
-                <label className="block text-[13px] font-medium text-[#1a1a1a] mb-1.5">Priority</label>
-                <select className={inputCls} style={{ borderColor: 'var(--border-color)' }} {...register('priority')}>
+                <label className="block text-[13px] font-bold text-[#1C3F35] mb-2">Priority</label>
+                <select className={inputStyle} {...register('priority')}>
                   <option value="LOW">Low</option>
                   <option value="MEDIUM">Medium</option>
                   <option value="HIGH">High</option>
@@ -100,39 +102,40 @@ export default function TaskFormDialog({ open, onClose, task, defaultStatus, def
 
           {(admin || !editing) && (
             <div>
-              <label className="block text-[13px] font-medium text-[#1a1a1a] mb-1.5">Due Date</label>
-              <input type="date" className={inputCls} style={{ borderColor: 'var(--border-color)' }} {...register('dueDate')} />
+              <label className="block text-[13px] font-bold text-[#1C3F35] mb-2">Due Date</label>
+              <input type="date" className={inputStyle} {...register('dueDate')} />
             </div>
           )}
 
           {(admin || !editing) && (
             <div>
-              <label className="block text-[13px] font-medium text-[#1a1a1a] mb-1.5">Project</label>
-              <select className={inputCls} style={{ borderColor: 'var(--border-color)' }} {...register('projectId', { required: 'Required' })}>
-                <option value="">Select project</option>
+              <label className="block text-[13px] font-bold text-[#1C3F35] mb-2">Project</label>
+              <select className={inputStyle} {...register('projectId', { required: 'Required' })}>
+                <option value="">Select a project...</option>
                 {projects?.map((p) => <option key={p.id} value={p.id}>{p.title}</option>)}
               </select>
-              {errors.projectId && <p className="mt-1 text-[11px] text-red-500">{errors.projectId.message}</p>}
+              {errors.projectId && <p className="mt-1.5 text-[12px] font-medium text-red-500">{errors.projectId.message}</p>}
             </div>
           )}
 
           {admin && (
             <div>
-              <label className="block text-[13px] font-medium text-[#1a1a1a] mb-1.5">Assignee</label>
-              <select className={inputCls} style={{ borderColor: 'var(--border-color)' }} {...register('assignedTo')}>
+              <label className="block text-[13px] font-bold text-[#1C3F35] mb-2">Assignee</label>
+              <select className={inputStyle} {...register('assignedTo')}>
                 <option value="">Unassigned</option>
                 {users?.map((u) => <option key={u.id} value={u.id}>{u.name} ({u.role})</option>)}
               </select>
             </div>
           )}
 
-          <div className="flex justify-end gap-2 pt-2">
-            <button type="button" onClick={onClose} className="rounded-xl border px-4 py-2 text-[13px] font-medium text-[#6B6560] hover:bg-[#F0EBE3]" style={{ borderColor: 'var(--border-color)' }}>Cancel</button>
-            <button type="submit" disabled={isSubmitting} className="rounded-xl bg-[#1C3F35] px-4 py-2 text-[13px] font-bold text-[#FFC436] hover:bg-[#153029] disabled:opacity-50">
-              {isSubmitting ? 'Saving...' : editing ? 'Save' : 'Create'}
+          <div className="flex justify-end gap-3 pt-4">
+            <button type="button" onClick={onClose} className="rounded-xl px-5 py-2.5 text-[14px] font-bold text-slate-500 hover:bg-slate-100 transition-colors">Cancel</button>
+            <button type="submit" disabled={isSubmitting} className="rounded-xl bg-[#1C3F35] px-6 py-2.5 text-[14px] font-bold text-white shadow-md hover:bg-[#153029] hover:shadow-lg disabled:opacity-50 transition-all">
+              {isSubmitting ? 'Saving...' : editing ? 'Save Changes' : 'Create Task'}
             </button>
           </div>
         </form>
+        </div>
       </div>
     </div>
   )

@@ -4,6 +4,7 @@ import type { Task } from '@/types'
 import { format } from 'date-fns'
 import { PriorityBadge } from '@/components/ui/badges'
 import { Calendar, GripVertical } from 'lucide-react'
+import { UserAvatar } from '@/components/ui/avatar'
 
 export default function TaskCard({ task, onEdit, isDragging }: { task: Task; onEdit?: () => void; isDragging?: boolean }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id: task.id, data: { task } })
@@ -29,7 +30,7 @@ export default function TaskCard({ task, onEdit, isDragging }: { task: Task; onE
           )}
         </div>
         {task.assignee
-          ? <img src={`https://ui-avatars.com/api/?name=${task.assignee.name}&background=FFC436&color=1C3F35&bold=true&size=24`} className="h-6 w-6 rounded-full border-2 border-white shadow-sm" alt={task.assignee.name} title={task.assignee.name} />
+          ? <UserAvatar name={task.assignee.name} className="h-6 w-6 rounded-full border-2 border-white shadow-sm text-[10px]" />
           : <div className="h-6 w-6 rounded-full bg-slate-100 border-2 border-white shadow-sm flex items-center justify-center text-slate-400 text-[9px] font-bold">?</div>
         }
       </div>
