@@ -22,6 +22,12 @@ export default function ProjectDetailPage() {
   const [detailTaskId, setDetailTaskId] = useState<string | null>(null)
   const [formOpen, setFormOpen] = useState(false)
 
+  const tasks = project?.tasks || []
+  const detailTask = useMemo(() => {
+    if (!detailTaskId) return null
+    return tasks.find((t) => t.id === detailTaskId) || null
+  }, [detailTaskId, tasks])
+
   if (isLoading) return (
     <div className="space-y-4">
       <Skeleton className="h-8 w-48" /><Skeleton className="h-4 w-96" />
@@ -32,11 +38,6 @@ export default function ProjectDetailPage() {
 
   if (!project) return <EmptyState title="Project not found" description="This project doesn't exist or has been deleted." />
 
-  const tasks = project.tasks || []
-  const detailTask = useMemo(() => {
-    if (!detailTaskId) return null
-    return tasks.find((t) => t.id === detailTaskId) || null
-  }, [detailTaskId, tasks])
   const done = tasks.filter(t => t.status === 'COMPLETED').length
   const pct = tasks.length ? Math.round((done / tasks.length) * 100) : 0
   const overdue = tasks.filter(t => t.dueDate && new Date(t.dueDate) < new Date() && t.status !== 'COMPLETED').length
