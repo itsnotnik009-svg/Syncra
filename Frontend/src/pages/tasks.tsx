@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useAuth } from '@/contexts/auth-context'
 import { useTasks } from '@/hooks/use-tasks'
@@ -28,7 +28,12 @@ export default function TasksPage() {
   const [formOpen, setFormOpen] = useState(false)
   const [editingTask, setEditingTask] = useState<Task | null>(null)
   const [showFilters, setShowFilters] = useState(false)
-  const [detailTask, setDetailTask] = useState<Task | null>(null)
+  const [detailTaskId, setDetailTaskId] = useState<string | null>(null)
+
+  const detailTask = useMemo(() => {
+    if (!detailTaskId || !tasks) return null
+    return tasks.find((t) => t.id === detailTaskId) || null
+  }, [detailTaskId, tasks])
 
   return (
     <div>
@@ -79,11 +84,12 @@ export default function TasksPage() {
           </div>
         </div>
       ) : (
-        <KanbanBoard tasks={tasks || []} onEditTask={(t) => setDetailTask(t)} />
+        <KanbanBoard tasks={tasks || []} onEditTask={(t) => setDetailTaskId(t.id)} />
       )}
 
       <TaskFormDialog open={formOpen} onClose={() => { setFormOpen(false); setEditingTask(null) }} task={editingTask} />
-      <TaskDetailDrawer task={detailTask} open={!!detailTask} onClose={() => setDetailTask(null)} />
+      <TaskDetailDrawer task={detailTask} open={!!detailTask} onClose={() => setDetailTaskId(null)} />
     </div>
   )
 }
+

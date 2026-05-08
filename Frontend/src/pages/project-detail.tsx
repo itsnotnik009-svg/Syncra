@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/auth-context'
 import { useProject } from '@/hooks/use-projects'
@@ -19,7 +19,7 @@ export default function ProjectDetailPage() {
   const navigate = useNavigate()
   const admin = useAuth().user?.role === 'ADMIN'
   const { data: project, isLoading } = useProject(id || '')
-  const [detailTask, setDetailTask] = useState<Task | null>(null)
+  const [detailTaskId, setDetailTaskId] = useState<string | null>(null)
   const [formOpen, setFormOpen] = useState(false)
 
   if (isLoading) return (
@@ -33,6 +33,10 @@ export default function ProjectDetailPage() {
   if (!project) return <EmptyState title="Project not found" description="This project doesn't exist or has been deleted." />
 
   const tasks = project.tasks || []
+  const detailTask = useMemo(() => {
+    if (!detailTaskId) return null
+    return tasks.find((t) => t.id === detailTaskId) || null
+  }, [detailTaskId, tasks])
   const done = tasks.filter(t => t.status === 'COMPLETED').length
   const pct = tasks.length ? Math.round((done / tasks.length) * 100) : 0
   const overdue = tasks.filter(t => t.dueDate && new Date(t.dueDate) < new Date() && t.status !== 'COMPLETED').length
@@ -100,7 +104,7 @@ export default function ProjectDetailPage() {
               {[...tasks].sort((a, b) => statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status)).map((t) => {
                 const late = t.dueDate && new Date(t.dueDate) < new Date() && t.status !== 'COMPLETED'
                 return (
-                  <tr key={t.id} onClick={() => setDetailTask(t)} className="border-b last:border-b-0 hover:bg-[#F9FAFB] transition-colors cursor-pointer" style={{ borderColor: 'var(--border-light)' }}>
+                  <tr key={t.id} onClick={() => setDetailTaskId(t.id)} className="border-b last:border-b-0 hover:bg-[#F9FAFB] transition-colors cursor-pointer" style={{ borderColor: 'var(--border-light)' }}>
                     <td className="px-5 py-3.5">
                       <p className="text-[13px] font-semibold text-[#1C3F35]">{t.title}</p>
                       {t.description && <p className="text-[11px] text-slate-400 truncate max-w-xs mt-0.5">{t.description}</p>}
@@ -125,7 +129,7 @@ export default function ProjectDetailPage() {
         </div>
       ) : <EmptyState title="No tasks yet" description={admin ? 'Add the first task to this project.' : 'No tasks in this project.'} />}
 
-      <TaskDetailDrawer task={detailTask} open={!!detailTask} onClose={() => setDetailTask(null)} />
+      <TaskDetailDrawer task={detailTask} open={!!detailTask} onClose={() => setDetailTaskId(null)} />
       <TaskFormDialog open={formOpen} onClose={() => setFormOpen(false)} task={null} defaultProjectId={project.id} />
     </div>
   )

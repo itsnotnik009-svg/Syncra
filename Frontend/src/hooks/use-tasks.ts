@@ -40,6 +40,7 @@ export function useUpdateTask() {
     },
     onSettled: () => {
       qc.invalidateQueries({ queryKey: ['tasks'] })
+      qc.invalidateQueries({ queryKey: ['projects'] })
       qc.invalidateQueries({ queryKey: ['dashboard'] })
     },
   })
