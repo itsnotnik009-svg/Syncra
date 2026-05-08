@@ -55,7 +55,7 @@ export default function TaskFormDialog({ open, onClose, task, defaultStatus, def
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="fixed inset-0 bg-[#1C3F35]/20 backdrop-blur-md transition-opacity" onClick={onClose} />
       <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
-        <div className="relative w-full max-w-lg rounded-[24px] bg-white p-6 sm:p-7 shadow-2xl border border-[#E8E5E0] animate-in fade-in zoom-in-95 duration-200">
+        <div className="relative w-full max-w-lg rounded-xl bg-white p-6 sm:p-7 shadow-xl border border-slate-200">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-[18px] font-extrabold text-[#1C3F35] tracking-tight">{editing ? 'Edit Task' : 'New Task'}</h2>
             <button onClick={onClose} className="rounded-full p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors"><X className="h-5 w-5" /></button>

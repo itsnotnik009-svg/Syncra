@@ -14,7 +14,7 @@ export default function StatCard({ label, value, icon, subtitle, variant }: {
 }) {
   return (
     <div className={cn(
-      "relative overflow-hidden rounded-2xl p-4 sm:p-6 border shadow-[0_2px_10px_rgb(0,0,0,0.02)] transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1",
+      "relative overflow-hidden rounded-xl p-4 sm:p-6 border border-slate-200 shadow-sm transition-all hover:shadow-md",
       styles[variant].bg
     )} style={{ borderColor: 'var(--border-color)' }}>
       <div className="flex items-center justify-between mb-4">

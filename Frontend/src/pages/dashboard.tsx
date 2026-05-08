@@ -32,13 +32,13 @@ function AdminDashboard() {
           <h2 className="text-[16px] font-bold text-[#1C3F35]">Recent Activity</h2>
         </div>
         {al ? <TableSkeleton rows={5} /> : activity?.length ? (
-          <div className="rounded-[24px] border border-slate-200 bg-white overflow-hidden shadow-sm">
+          <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
             <table className="w-full min-w-[720px] border-collapse">
               <thead>
-                <tr className="border-b border-slate-100 bg-slate-50/80">
+                <tr className="border-b border-slate-200 bg-slate-50">
                   {['Task', 'Project', 'Status', 'Priority', 'Assignee', 'Date'].map((h, i) => (
-                    <th key={h} className={`px-6 py-4 text-left text-[12px] font-extrabold uppercase tracking-widest text-slate-400/80 ${i === 0 ? 'rounded-tl-[24px]' : ''} ${i === 5 ? 'rounded-tr-[24px]' : ''}`}>
+                    <th key={h} className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                       {h}
                     </th>
                   ))}
@@ -113,7 +113,7 @@ function MemberDashboard() {
         {tl ? <TableSkeleton rows={5} /> : tasks?.length ? (
           <div className="space-y-3">
             {tasks.slice(0, 10).map((t) => (
-              <div key={t.id} className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-2xl border bg-white p-4 sm:p-5 shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all" style={{ borderColor: 'var(--border-color)' }}>
+              <div key={t.id} className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm hover:shadow-md transition-all">
                 <div className="flex-1 min-w-0">
                   <p className="text-[14px] font-bold text-[#1C3F35] truncate">{t.title}</p>
                   <div className="mt-1.5 flex items-center gap-1.5"><FolderKanban className="h-3.5 w-3.5 text-slate-400" /><span className="text-[12px] font-medium text-slate-500">{t.project.title}</span></div>
