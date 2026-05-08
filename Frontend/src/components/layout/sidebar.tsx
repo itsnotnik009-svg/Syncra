@@ -22,7 +22,7 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
       {open && <div className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden" onClick={onClose} />}
       <aside className={cn("fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col bg-[#1C3F35] transition-transform duration-300 lg:relative lg:translate-x-0 lg:rounded-[24px] lg:my-4 lg:ml-4 shadow-xl h-full lg:h-[calc(100vh-32px)] overflow-hidden", open ? "translate-x-0" : "-translate-x-full")}>
         
-        {/* Decorative subtle background elements */}
+        
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
         
         <div className="flex h-24 items-center px-8 relative z-10">

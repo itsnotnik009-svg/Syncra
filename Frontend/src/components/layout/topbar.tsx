@@ -32,7 +32,7 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
   return (
     <header className="sticky top-0 z-30 flex flex-col justify-center px-4 sm:px-8 pb-4 sm:pb-6 pt-4 sm:pt-6 bg-[#F4F6F2]">
       <div className="relative overflow-hidden rounded-[20px] sm:rounded-[24px] bg-gradient-to-br from-[#1C3F35] to-[#2A5C4D] text-white shadow-lg p-4 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        {/* Decorative elements */}
+        {/* bg */}
         <div className="absolute right-0 top-0 w-[400px] h-[400px] bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
         <div className="absolute right-[20%] bottom-[-20%] w-[200px] h-[200px] bg-gradient-to-tr from-[#FFC436]/20 to-transparent rounded-full blur-2xl pointer-events-none" />
         

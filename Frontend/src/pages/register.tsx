@@ -18,14 +18,14 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex font-sans bg-white">
-      {/* Left Panel: Glowing Mesh Gradient */}
+      {/* Brand panel */}
       <div className="hidden lg:flex w-[45%] bg-[#0B1914] flex-col justify-between p-16 relative overflow-hidden">
-        {/* Animated Orbs */}
+
         <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[#1C3F35] blur-[120px] mix-blend-screen opacity-80 animate-pulse" style={{ animationDuration: '7s' }} />
         <div className="absolute bottom-[-15%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#FFC436]/20 blur-[100px] mix-blend-screen opacity-50" />
         <div className="absolute top-[30%] right-[20%] w-[400px] h-[400px] rounded-full bg-emerald-500/10 blur-[120px] mix-blend-screen opacity-60" />
         
-        {/* Subtle grid pattern for depth */}
+
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)] opacity-40 pointer-events-none" />
 
         <div className="relative z-10 mt-10">
@@ -48,7 +48,7 @@ export default function RegisterPage() {
         </div>
       </div>
 
-      {/* Right Panel: Tactile Form */}
+      {/* Form */}
       <div className="w-full lg:w-[55%] flex items-center justify-center p-6 sm:p-12 relative bg-white">
         <div className="absolute top-10 right-10 z-10 hidden sm:block">
           <p className="text-[14px] font-bold text-slate-400">Already have an account? <Link to="/login" className="text-[#1C3F35] hover:text-[#FFC436] transition-colors ml-1">Sign in</Link></p>
